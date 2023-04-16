@@ -1,0 +1,119 @@
+
+13) switch files			##SKIP THIS STEP!
+
+voice.py #for showerthoughts update
+	*)  /usr/local/lib/python3.7/dist-packages/pwnagotchi/  # This one is enough
+		*)  /usr/local/src/pwnagotchi/build/lib/pwnagotchi/  
+		*)  /usr/local/src/pwnagotchi/pwnagotchi/
+
+waveshare2.py #adjusted peer position
+	*) /usr/local/lib/python3.7/dist-packages/pwnagotchi/ui/hw/  #This one is enough
+		*) /usr/local/src/pwnagotchi/build/lib/pwnagotchi/ui/hw/
+		*) /usr/local/src/pwnagotchi/pwnagotchi/ui/hw/
+
+webgpsmap.html
+	*) /usr/local/lib/python3.7/dist-packages/pwnagotchi/plugins/default/
+
+
+13a) #OPTIONAL BUT RECOMENDED if you got showerthoughts voice##    ##SKIP THIS STEP!
+
+#activate of looking around animation (feed rss r/showerthoughts) z 13 kroku
+
+	sudo su
+	crontab -e
+
+#add following
+
+	30 * * * * curl --silent https://www.reddit.com/r/showerthoughts.rss --user-agent 'Mozilla' --output /root/showerthoughts.rss
+
+*save and exit* 
+
+	sudo su
+	curl --silent https://www.reddit.com/r/showerthoughts.rss --user-agent 'Mozilla' --output /root/showerthoughts.rss
+
+14)	
+
+	sudo apt-get update --allow-releaseinfo-change #fix to: repository changed its 'Suite' value from 'stable' to 'oldstable'  
+
+	sudo apt-get update 
+	
+	sudo apt install nmap macchanger			#educational-purposes-only/home_base plugin// choose "no" for automatic random mac
+
+*)SSH without password:
+
+	*on your PC open cmd and:*
+
+		cd .ssh/
+		ssh-keygen
+		*3x enter*
+
+		*copy content of id_rsa.pub
+
+	*back to pi*
+
+		sudo nano ~/.ssh/authorized_keys
+
+	*paste content of id_rsa.pub *[RMB]*; save*
+
+
+
+	#####How to Delete Line in Nano?
+    ##First, you need to press CTRL + Shift + 6 to mark the start of your block
+    ##Now, shift the cursor to the end of the block with the arrow keys, and it will outline the text.
+    ##Finally, press CTRL + K to cut/delete a block and it will remove a line in nano.
+
+*) RTC config (https://learn.adafruit.com/adding-a-real-time-clock-to-raspberry-pi/set-rtc-time)  ##SKIP THIS STEP if you dont have RTC installed
+
+		cd ~
+		sudo apt-get install python-smbus i2c-tools -y
+		sudo i2cdetect -y 1 							#to ckeck if wiring is good. numbers = ok; if "uu" skip next command/step (dont edit file)
+		sudo nano /boot/config.txt
+
+	*edit the pi configuration and add to the end of the file whichever matches your RTC chip:
+		**
+		dtoverlay=i2c-rtc,pcf8523
+		**
+		sudo reboot
+
+	*ssh to pi again*
+
+		sudo i2cdetect -y 1  ## "UU" means we're good
+
+    	sudo apt-get -y remove fake-hwclock
+   	 	sudo update-rc.d -f fake-hwclock remove
+    	sudo systemctl disable fake-hwclock
+
+	Run sudo nano /lib/udev/hwclock-set and comment out these five lines:
+
+		#if [ -e /run/systemd/system ] ; then
+		# exit 0
+		#fi
+
+		#/sbin/hwclock --rtc=$dev --systz --badyear
+		#/sbin/hwclock --rtc=$dev --systz
+
+	*save and exit*
+
+		sudo hwclock -r   ##read the time directly from the RTC
+		date  #if output is not a current date  procced with next step
+
+		sudo raspi-config
+
+	*Got to “Localisation options”, then “Timezone
+	*Pick a geographic area and a specific time zone then exit [esc]
+
+		date ##if correct proceed
+		sudo hwclock -w
+
+		sudo systemctl stop pwnagotchi 
+		sudo reboot 
+
+~~~~~~~~~~~~extra info:~~~~~~~~~~~~~~~~~~~~~~~~
+
+blind mon bug fix?:
+https://github.com/evilsocket/pwnagotchi/issues/267#issuecomment-571025443
+https://github.com/seemoo-lab/nexmon/issues/335#issuecomment-738928287
+
+if you want to use quick-dic make sure to add
+#main.plugins.quickdic.wordlist_folder = “/opt/wordlists/“
+to /etc/pwnagotchi/config.toml
