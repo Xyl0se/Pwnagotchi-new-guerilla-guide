@@ -7,7 +7,7 @@ This work is based on the **guerrila guide to installing pwnagotchi [1.5.5/2022]
 
 Since panoptyks original writeup some things have changed and I ran into several problems while setting up my pwnagotchi for the first time. Some bugs are still unresolved, see Section *known bugs*.
 
-However, the normal installation guide from [the official website](https://pwnagotchi.ai) is still valid by and large, so this document will mostly provide details regarding deviations/addons to the standard installation procedure.
+However, the normal installation guide from [the official website](https://pwnagotchi.ai) is outdated now please use https://pwnagotchi.org/, so this document will mostly provide details regarding deviations/addons to the standard installation procedure.
 
 The specific hardware I myself have been using for my build is this:
 
@@ -24,12 +24,14 @@ Not every section from the original guide has been used in this document, the om
 
 ### 1.1 Download
 
-- [balena etcher](https://www.balena.io/etcher/)
-- [pwnagotchi v1.5.5](https://github.com/evilsocket/pwnagotchi/releases/tag/v1.5.5)
+- [RPI Imager](https://downloads.raspberrypi.org/imager/imager_latest.exe))
+- [pwnagotchi Image]
+[PizeroW](https://github.com/jayofelony/pwnagotchi-torch/releases/tag/v2.6.4)
+[Pizero2 and above](https://github.com/jayofelony/pwnagotchi-bookworm/releases/tag/v2.8.3)
 
 ### 1.2 write the image to a micro sd card with balena etcher
 
-(for details see pwnagotchi.ai)
+(for details see https://pwnagotchi.org/)
 
 ## 2. Basic Connectivity (SSH, FTP, Connection Sharing)
 
@@ -40,7 +42,7 @@ Because I am running Windows 11 as a daily driver, this section will cover only 
 1. connect RP0W data port to pc (Micro-USB to USB A)
 2. wait for the device to boot up for the first time (20+ Minutes)
 3. Check Device Manager for COM-Port - [as described here](https://learn.adafruit.com/turning-your-raspberry-pi-zero-into-a-usb-gadget/ethernet-gadget#if-you-are-using-windows-as-the-host-machine-2570572)
-4. If Windows didn't install the RP0W as an "Ethernet Gadget", download the corresponding driver on [Windows Update](https://www.catalog.update.microsoft.com/Search.aspx?q=USB+RNDIS%20Gadget)
+4. If Windows didn't install the RP0W as an "Ethernet Gadget", download the corresponding driver on [Windows Update](https://modclouddownloadprod.blob.core.windows.net/shared/mod-rndis-driver-windows.zip)
 5. Unpack the CAB
 6. In Device Manager select the COM-Device and update the driver with the one from the CAB
 7. make sure to check in Network Devices for the Interface and configure TCP/IP v4 to use 10.0.0.01 as its IP-address, 255.255.255.0 as Subnet and 10.0.0.1 as Gateway.
