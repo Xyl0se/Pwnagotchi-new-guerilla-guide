@@ -360,7 +360,7 @@ source ~/.bashrc
 ### 10.2 Add "SD card protection" by enabling write cache
 
 ```bash
-sudo nano /etc/config.toml
+sudo nano /etc/pwnagotchi/config.toml
 
 fs.memory.enabled = true
 fs.memory.mounts.log.enabled = true
