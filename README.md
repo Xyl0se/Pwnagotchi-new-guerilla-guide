@@ -16,7 +16,7 @@ The specific hardware I myself have been using for my build is this:
 - PiSugar 2 (2 LED-version)
 - Samsung Evo 32GB micro SD
 - BUT
-- YOu can now also use the Pizero2w , RPI3, RPI4, and RPI5
+- You can now also use the Pizero2w , RPI3, RPI4, and RPI5
 - 
 I will do my best to reference and credit every source, please add sources where missing and/or drop me a hint. Majority of this document has been created in 2023-04, things are moving fast and surely another year later there will be other stuff broken, and other fixes available.
 
